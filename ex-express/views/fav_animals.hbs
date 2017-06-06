@@ -1,0 +1,19 @@
+<!doctype HTML>
+
+<html>
+<head>
+  <title> Fav_animals </title>
+</head>
+  <body>
+      <ul>
+        <h1> My Favorite Animals are: </h1>
+        <p>
+        {{#each animals}}
+          {{# if favorite}}
+           <li>{{name}}</li>
+          {{/if}}
+        {{/each}}
+      </ul>
+    </p>
+  </body>
+</html>
