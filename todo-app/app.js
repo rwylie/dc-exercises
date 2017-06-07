@@ -23,6 +23,33 @@ app.get('/todos', function(request, response) {
   })
 });
 
+app.post('/delete', function(request, response, next) {
+  // console.log(request.body);
+  console.log(typeof(request.body.task));
+  var taskId = request.body.task;
+  var plist = [];
+  if (typeof(taskId) === 'object') {
+    for (var i=0; i < taskId.length; i++) {
+      var p = db.none('DELETE FROM task WHERE id = $1', taskId[i]);
+      plist.push(p);
+    }
+  }
+  else {
+    var p = db.none('DELETE FROM task WHERE id = $1', taskId);
+    plist.push(p);
+  }
+
+  promise.all(plist).then(function () {
+    console.log('delete successful');
+    response.redirect('/todos');
+  })
+    .catch(next);
+  // .then(function() {
+  //  response.redirect('/todos');
+  // })
+  // .catch(next);
+  // response.send('OK');
+ });
 
 app.post('/add_todo', function(request, response, next) {
   var desc = request.body.description;
