@@ -1,0 +1,9 @@
+<form style="color: blue;" action="/add_todo" method="POST">
+  <label>New task: </label><input type="text" name="description">
+</form>
+<ul class="center-page">
+  {{#each todos}}
+  <li style="list-style-type:none; font-family: cursive;">
+    <h3>~ {{description}}</h3></li>
+  {{/each}}
+</ul>
