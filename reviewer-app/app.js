@@ -72,6 +72,19 @@ app.post('/submit_review/:id', function(request, response, next) {
   .catch(next);
 });
 
+app.get('/new', function(req, resp) {
+  resp.render('new.hbs', {});
+});
+
+app.post('/submit_new', function(request, response, next) {
+  db.none('INSERT into RESTAURANT values \
+ (default, ${name}, ${address}, ${category})', request.body)
+ .then(function () {
+   response.redirect(`/restaurant/${restaurantID}`);
+ })
+ .catch(next);
+});
+
 app.listen(8000, function () {
   console.log('Listening on port 8000');
 });
