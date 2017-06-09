@@ -1,0 +1,36 @@
+<div style="text-align: center; margin-top: 200px;">
+  <h1 style="font-family: cursive;"> Restaurant: </h1>
+<h3>{{restaurant.restaurant_name}}</h3>
+<h3>  Address: {{restaurant.address}} </h3>
+<h3>  Type: {{restaurant.category}}</h3>
+</div>
+<div style="position:absolute; top: 5%; right: 5%;">
+{{#if reviews}}
+  <h2>Reviews:</h2>
+  {{#each reviews}}
+    <p>Author: {{reviewer_name}}</p>
+    <p>Stars: {{stars}}</p>
+    <p>{{review}}</p>
+  {{/each}}
+{{/if}}
+</div>
+
+<div style="position:absolute; top: 5%; left: 5%;">
+  <form method='POST' action='/submit_review/{{id}}'>
+    <label><h2> Add a Review</h2> </label>
+    <label>Review Title:</label><br>
+    <input type="text" name='title'><br><br>
+    <label>Number of Stars:</label><br>
+    <select name="stars">
+      <option value="1">1 Star</option>
+      <option value="2">2 Stars</option>
+      <option value="3">3 Stars</option>
+      <option value="4">4 Stars</option>
+      <option value="4">5 Stars</option>
+    </select>
+    <br><br>
+    <label>Review:</label><br>
+    <textarea name="review" rows="10" cols="30"></textarea><br><br>
+    <button type="submit">Submit</button>
+  </form>
+</div>

@@ -7,7 +7,7 @@ var pgp = require('pg-promise')({
 
 var app = express();  //create your app
 
-var db = pgp({database: 'test'});
+var db = pgp({database: 'restaurant'});
 app.set('view engine', 'hbs');
 app.use(body_parser.urlencoded({extended: false}));
 app.use("/static", express.static("public"));
@@ -17,13 +17,61 @@ app.get("/", function (request, response) {
   response.render('homepage.hbs', {});
 });
 
-app.get('/search', function (request, response) {
+app.get('/search', function (request, response, next) {
+  results = []
   var search = request.query.searchTerm;
+  var query = `SELECT * FROM restaurant WHERE restaurant.category ILIKE '%${search}%'`;
+  db.any(query)
   //generate based on search term
-  //results = []
+  .then(function (results) {
   response.render('search.hbs', {results: results});
+    })
+    .catch(next);
 });
 
-app.listen(9000, function () {
-  console.log('Listening on port 9000');
+app.get('/restaurant/:id', function(req, resp, next) {
+  let id = req.params.id;
+  db.any(`
+    select
+      restaurant.name as restaurant_name,
+      restaurant.address,
+      restaurant.category,
+      reviewer.name as reviewer_name,
+      review.title,
+      review.stars,
+      review.review
+    from
+      restaurant
+    left outer join
+      review on review.restaurant_id = restaurant.id
+    left outer join
+      reviewer on review.reviewer_id = reviewer.id
+    where restaurant.id = ${id}
+  `)
+    .then(function(reviews) {
+      resp.render('restaurant.hbs', {
+        restaurant: reviews[0],
+        reviews: reviews,
+        id: id
+        // hasReviews: reviews[0].reviewer_name
+      });
+    })
+    .catch(next);
+});
+
+app.post('/submit_review/:id', function(request, response, next) {
+  var restaurantId = request.params.id;
+  console.log('restaurant ID', restaurantId);
+  console.log('from the form', request.body);
+  request.body.restaurantId = restaurantId;
+  db.none('INSERT into REVIEW values \
+  (default, ${stars}, ${title}, ${review}, NULL, ${restaurantId})', request.body)
+  .then(function() {
+    response.redirect(`/restaurant/${restaurantId}`);
+  })
+  .catch(next);
+});
+
+app.listen(8000, function () {
+  console.log('Listening on port 8000');
 });
