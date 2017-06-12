@@ -1,0 +1,29 @@
+<!doctype html>
+<html>
+<head>
+  <title>Canvas Exercises</title>
+</head>
+<body>
+  <style>
+  </style>
+
+<canvas width="500" height="500"></canvas>
+<script>
+//draw a rectangle
+var canvas = document.querySelector('canvas');
+var ctx = canvas.getContext('2d');
+//two rectangles next to each other
+ctx.fillStyle = 'purple';
+ctx.fillRect(25, 25, 50, 175);
+ctx.fillStyle = 'green';
+ctx.fillRect(75, 25, 50, 175);
+
+//two rectangles one inside the other
+ctx.fillStyle = 'red';
+ctx.fillRect(150, 25, 100, 200);
+ctx.fillStyle = 'yellow';
+ctx.fillRect(175, 35, 50, 175);
+//
+</script>
+<body>
+  </html>
