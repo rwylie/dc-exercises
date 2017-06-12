@@ -112,7 +112,7 @@ app.post('/submit_review/:id', function(request, response, next) {
   let name = request.session.user;
   db.none('INSERT into REVIEW values \
   (default, ${stars}, ${title}, ${review}, NULL, ${restaurantId})', request.body)
-  .then(function() {
+  .then(function(restaurant) {
     response.redirect(`/restaurant/${restaurantId}`);
   })
   .catch(next);
