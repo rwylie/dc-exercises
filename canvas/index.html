@@ -10,20 +10,55 @@
 <canvas width="500" height="500"></canvas>
 <script>
 //draw a rectangle
-var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d');
-//two rectangles next to each other
-ctx.fillStyle = 'purple';
-ctx.fillRect(25, 25, 50, 175);
-ctx.fillStyle = 'green';
-ctx.fillRect(75, 25, 50, 175);
+  var canvas = document.querySelector('canvas');
+  var ctx = canvas.getContext('2d');
+  //two rectangles next to each other
+  ctx.fillStyle = 'purple';
+  ctx.fillRect(25, 25, 50, 175);
+  ctx.fillStyle = 'green';
+  ctx.fillRect(75, 25, 50, 175);
 
-//two rectangles one inside the other
-ctx.fillStyle = 'red';
-ctx.fillRect(150, 25, 100, 200);
-ctx.fillStyle = 'yellow';
-ctx.fillRect(175, 35, 50, 175);
-//
+  //two rectangles one inside the other
+  ctx.fillStyle = 'red';
+  ctx.fillRect(150, 25, 100, 200);
+  ctx.fillStyle = 'yellow';
+  ctx.fillRect(175, 35, 50, 175);
+
+  //draw circle
+  ctx.beginPath();
+  ctx.fillStyle = 'grey';
+  ctx.ellipse(323, 100, 50, 50, 0, 0, Math.PI * 2);
+  ctx.fill();
+  //draw 2 circles one inside the other
+  ctx.beginPath();
+  ctx.fillStyle = 'blue';
+  ctx.ellipse(400, 300, 100, 100, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  ctx.beginPath();
+  ctx.fillStyle = 'pink';
+  ctx.ellipse(400, 300, 50, 50, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  //draw a bull's eye
+
+  ctx.beginPath();
+  ctx.lineWidth = 25.0;
+  ctx.strokeStyle = 'blue';
+  ctx.ellipse(125, 324, 100, 100, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.lineWidth = 30.0;
+  ctx.strokeStyle = 'pink';
+  ctx.ellipse(125, 324, 70, 70, 0, 0, Math.PI * 2);
+  ctx.stroke();
+
+  ctx.beginPath();
+  ctx.fillStyle = 'black';
+  ctx.ellipse(125, 324, 50, 50, 0, 0, Math.PI * 2);
+  ctx.fill();
+
 </script>
 <body>
   </html>
