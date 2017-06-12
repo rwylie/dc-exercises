@@ -11,16 +11,42 @@
   }
   </style>
 
-<canvas width="500" height="500"
+<canvas width="500" height="400"
     style="
     background-color: white;
     margin: auto;
     display: block;
-    border: 3px solid #73AD21;
+    border: 3px solid #84C49A;
     padding: 10px;;">
   </canvas>
+<!--change color buttons -->
+<div style="text-align: center;">
+  <h3 style="color: #84C49A"> Choose Color</h3>
+  <form style="color: white;"action="colors">
+    <input type="radio" name="color" value="blue"> Blue
+    <input type="radio" name="color" value="red"> Red
+    <input type="radio" name="color" value="purple"> Purple
+  </form>
+</div>
+
+<!--change thickness buttons -->
+<div style="text-align:center;">
+  <h3 style="color: #84C49A"> Choose Pen </h3>
+  <form style="color: white;"action="pens">
+    <input type="radio" name="pen" value="small"> Small
+    <input type="radio" name="pen" value="medium"> Medium
+    <input type="radio" name="pen" value="large"> Large
+  </form>
+</div>
+
+<!--ERASE -->
+
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="frontend.js"></script>
 <script> var socket = io() </script>
+
 </body>
 </html>

@@ -6,14 +6,16 @@ var io = require('socket.io')(http);
 //app.set('view engine', 'hbs');
 app.use(express.static('public'));
 
+
 io.on('connection', function(socket) {
   console.log('CONNECTED');
   socket.on('disconnect', function () {
     console.log('EXITED');
   });
-
+  socket.on('draw', function(past, current) {
+    socket.broadcast.emit('draw', past, current);
+  });
 });
-
 
 
 //instead of app.listen we not only want web request but socket immessions

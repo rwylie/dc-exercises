@@ -2,7 +2,9 @@ var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
 
 //draw a line
+ctx.strokeStyle = 'blue';
 ctx.strokeStyle = 'red';
+ctx.strokeStyle = 'purple';
 
 
 var mouse_down = false;
@@ -47,6 +49,18 @@ if (mouse_down) {
   if (past) {
     draw(past, current);
   }
+  socket.emit('draw', past, current);
   past = [event.offsetX, event.offsetY];
 }
+});
+
+$(function () {
+  socket.on('draw', function(past, current) {
+    draw(past, current);
+    console.log("hey");
+  });
+});
+
+http.listen(8000, function () {
+  console.log('listening on port 8000');
 });
