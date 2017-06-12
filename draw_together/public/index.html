@@ -4,11 +4,23 @@
   <title>Draw Together</title>
 </head>
 <body>
-  <h1>Draw Together</h1>
+  <h1 style="color: #84C49A; text-align: center;">Draw Together</h1>
   <style>
+  body {
+    background-color: #1B373E;
+  }
   </style>
 
-<canvas width="500" height="500"></canvas>
+<canvas width="500" height="500"
+    style="
+    background-color: white;
+    margin: auto;
+    display: block;
+    border: 3px solid #73AD21;
+    padding: 10px;;">
+  </canvas>
+<script src="/socket.io/socket.io.js"></script>
 <script src="frontend.js"></script>
+<script> var socket = io() </script>
 </body>
 </html>
