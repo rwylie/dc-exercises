@@ -7,6 +7,12 @@ import TextField from 'material-ui/TextField';
 // import MenuItem from 'material-ui/MenuItem';
 import styles from './contacts.css'
 
+// import {List, ListItem} from 'material-ui/List';
+// import ActionGrade from 'material-ui/svg-icons/action/grade';
+// import Divider from 'material-ui/Divider';
+// import Avatar from 'material-ui/Avatar';
+// import {pinkA200, transparent} from 'material-ui/styles/colors';
+
 function compare(a, b) {
   if (a.name < b.name)
     return -1;
@@ -18,6 +24,10 @@ function compare(a, b) {
 class MyForm extends Component {
   constructor(props) {
     super(props);
+
+    var contacts = localStorage.contacts || '[]';
+    contacts = JSON.parse(contacts);
+
     this.state = {
       name: '',
       email: '',
@@ -26,27 +36,8 @@ class MyForm extends Component {
       city: '',
       state: '',
       zip: '',
-
-      contacts: [{
-      name: 'Ronda',
-      email: 'something@jkl.com',
-      phone_number: '0987654323',
-      address: '123 somerihtn',
-      city: 'boo',
-      state: 'ban',
-      zip: 'numbers',
-    },
-      {
-      name: 'Abbie',
-      email: 'something@jkl.com',
-      phone_number: '0987654323',
-      address: '123 somerihtn',
-      city: 'boo',
-      state: 'ban',
-      zip: 'numbers',
-  }]
-
-
+      isOpened: false,
+      contacts: contacts
     };
 
     this.state.contacts.sort(compare);
@@ -81,11 +72,18 @@ handleAddContact = () => {
     address: this.state.address,
     city: this.state.city,
     state: this.state.state,
-    zip: this.state.zip
-
+    zip: this.state.zip,
+    isOpened: false
   });
   this.state.contacts.sort(compare);
   this.setState({ contacts: this.state.contacts});
+
+  localStorage.contacts = JSON.stringify(this.state.contacts);
+}
+
+toggleState (event, contact) {
+ contact.isOpened = !contact.isOpened;
+ this.setState({contacts: this.state.contacts });
 }
 
   render() {
@@ -134,18 +132,32 @@ handleAddContact = () => {
        </form>
 
 
-          {this.state.contacts.map((c) => {
-            return (
-              <ul>
-                  <li>{"Name: " + c.name + " "}</li>
-                  <li>{"Email: " + c.email + " "}</li>
-                  <li>{"Phone Number: " + c.phone_number + " "}</li>
-                  <li>{"Address: " + c.address + " "}</li>
-                  <li>{"City: " + c.city + " "}</li>
-                  <li>{"State: " + c.state + " "}</li>
-                  <li>{"Zip-code: " + c.zip + " "}</li>
-              </ul>
 
+
+
+          {this.state.contacts.map((c, index) => {
+            return (
+
+              <ul>
+                <li onClick={event => this.toggleState(event)} >{"Name: " + c.name + " "}</li>
+                  {
+                    c.isOpened ?
+                    <div>
+                      <li>{"Email: " + c.email + " "}</li>
+                      <li>{"Phone Number: " + c.phone_number + " "}</li>
+                      <li>{"Address: " + c.address + " "}</li>
+                      <li>{"City: " + c.city + " "}</li>
+                      <li>{"State: " + c.state + " "}</li>
+                      <li>{"Zip-code: " + c.zip + " "}</li>
+                    </div>
+                    :
+                    null
+                  }
+                  {"Show Contact Information: "}<input type="checkbox"
+                  checked={c.isOpened} onClick={event => this.toggleState(event, c)} />
+
+
+              </ul>
             )
           })}
 
