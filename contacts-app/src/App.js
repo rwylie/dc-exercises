@@ -5,9 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {teal200} from 'material-ui/styles/colors';
 import MyForm from './myform';
-
-
 import {BrowserRouter, Route, Link} from 'react-router-dom';
+import AppBar from 'material-ui/AppBar';
+import Edit from './edit';
 
 const Home = () => (<h2>Home Page</h2>);   //quick component
 
@@ -15,11 +15,13 @@ const theme = getMuiTheme({
   palette: {primary1Color: teal200}
 });
 
-
+  // route of /edit/:index is based on the index of the contacts list
 class App extends Component {
   render() {
     return (
+
       <MuiThemeProvider muiTheme={theme}>
+
         <BrowserRouter>
         <div>
           <ul>
@@ -28,6 +30,8 @@ class App extends Component {
           </ul>
           <Route exact path="/" component={Home}/>
           <Route path="/form" component={MyForm}/>
+
+          <Route path="/edit/:index" component={Edit}/>
           </div>
         </BrowserRouter>
       </MuiThemeProvider>
