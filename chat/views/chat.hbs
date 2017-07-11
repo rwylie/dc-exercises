@@ -1,17 +1,11 @@
-<!doctype html>
-<html>
-  <head>
-    <title> Chat App</title>
-  </head>
-  <body>
-    <h1> Chat App </h1>
+    <h1 #header> Chat App </h1>
     <input id="message" onkeypress="send_message(event)">
     <pre id="chat-box"></pre>
     <script src="/socket.io/socket.io.js"></script>
 <script>
   var server = io();
   var room;
-  var token = '{{token}}';  //json web token 
+  var token = '{{token}}';  //json web token
 
   server.on('connect', function (s) {
     console.log('connected');
@@ -30,10 +24,8 @@ function send_message (event) {
   var char = event.which || event.keyCode;
   if (char == '13') {
     var msg = document.getElementById("message"); //gets value of message
-    server.emit('incoming', {room: room, msg: msg.value, token: token}); //sends it through the web-socket
+    server.emit('incoming', {room: room, msg: msg.value, token: token}); //sends it through the web-socket,
     msg.value = ''; //clearing out the input
   }
 }
 </script>
-  </body>
-  </html>

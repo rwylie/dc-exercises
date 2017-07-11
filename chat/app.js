@@ -10,8 +10,8 @@ var SECRET = 'SUPER-SECRET';
 app.set('view engine', 'hbs');
 //app.use('/static', express.static('static')); //?
 app.get('/', function (request, response) {
-  var token = jwt.sign({user: 'ronda'}, SECRET, {expiresIn: 60 * 60});
-  response.render('chat.hbs', {token: token});
+  var token = jwt.sign({user: 'ronda'}, SECRET, {expiresIn: 60 * 60}); //generates the token
+  response.render('chat.hbs', {token: token}); //sending the token to the frontend
 });
 
 io.on('connection', function(client){
@@ -31,9 +31,9 @@ io.on('connection', function(client){
 
     client.on('incoming', function (msg) {
       try {
-        var decoded = jwt.verify(msg.token, SECRET);
+        var decoded = jwt.verify(msg.token, SECRET);  //token comes back and is verified, will fail if secret changes or expires
       } catch (e) {
-        io.to(msg.room).emit('chat-msg', 'Sorry!!');
+        io.to(msg.room).emit('chat-msg', 'Sorry!!'); //frontend if sorry you can send to login 
         return;
       }
       console.log(decoded);

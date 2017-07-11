@@ -1,0 +1,32 @@
+#header {
+  color: #b3c7dd;
+}
+#header.mobile {
+  font-weight: normal;
+  width: calc(100% - 20px);
+}
+#header a {
+  text-decoration: none;
+  color: #b3c7dd;
+}
+#header a span {
+  font-weight: bold;
+}
+#header a:hover {
+  text-decoration: underline;
+}
+@media (max-width: 768px) {
+  #header {
+    color: black;
+  }
+}
+.bordered {
+  border: 1px solid #5B83AD;
+}
+.padding {
+  padding: 10px;
+}
+pre {
+  border: 1px solid #5B83AD;
+  padding: 10px;
+}
