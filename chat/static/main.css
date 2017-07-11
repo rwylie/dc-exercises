@@ -1,32 +1,48 @@
-#header {
-  color: #b3c7dd;
+body {
+  padding-top: 300px;
+  padding-right: 500px;
+  padding-bottom: 50px;
+  background-image: url('/static/beyoutiful.jpg');
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-size: cover;
+
+  background-repeat: no-repeat;
 }
-#header.mobile {
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+  margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+  margin-bottom: 10px;
+}
+.form-signin .checkbox {
   font-weight: normal;
-  width: calc(100% - 20px);
 }
-#header a {
-  text-decoration: none;
-  color: #b3c7dd;
-}
-#header a span {
-  font-weight: bold;
-}
-#header a:hover {
-  text-decoration: underline;
-}
-@media (max-width: 768px) {
-  #header {
-    color: black;
-  }
-}
-.bordered {
-  border: 1px solid #5B83AD;
-}
-.padding {
+.form-signin .form-control {
+  position: relative;
+  height: auto;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   padding: 10px;
+  font-size: 16px;
 }
-pre {
-  border: 1px solid #5B83AD;
-  padding: 10px;
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

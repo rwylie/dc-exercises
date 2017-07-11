@@ -8,11 +8,14 @@ var jwt = require('jsonwebtoken');
 var SECRET = 'SUPER-SECRET';
 
 app.set('view engine', 'hbs');
-//app.use('/static', express.static('static')); //?
+app.use('/static', express.static('static')); //?
 app.get('/', function (request, response) {
   var token = jwt.sign({user: 'ronda'}, SECRET, {expiresIn: 60 * 60}); //generates the token
   response.render('chat.hbs', {token: token}); //sending the token to the frontend
 });
+app.get('/login', function(request, response) {
+  response.render('login.hbs', {});
+})
 
 io.on('connection', function(client){
   console.log('CONNECTED', client.id);
@@ -23,6 +26,7 @@ io.on('connection', function(client){
   //client.on('incoming', function(msg){  //catch event
   //io.emit('chat-msg', msg); //sent the message back called chat-msg  io.emit: sends to everyone if you do client.emit it sends to only one.
   //});
+  
   client.on('join-room', function(room) {
     client.join(room, function () {
       console.log(client.rooms);
@@ -33,7 +37,7 @@ io.on('connection', function(client){
       try {
         var decoded = jwt.verify(msg.token, SECRET);  //token comes back and is verified, will fail if secret changes or expires
       } catch (e) {
-        io.to(msg.room).emit('chat-msg', 'Sorry!!'); //frontend if sorry you can send to login 
+        io.to(msg.room).emit('chat-msg', 'Sorry!!'); //frontend if sorry you can send to login
         return;
       }
       console.log(decoded);
