@@ -11,7 +11,7 @@
 <script>
   var server = io();
   var room;
-  var token = '{{token}}';
+  var token = '{{token}}';  //json web token 
 
   server.on('connect', function (s) {
     console.log('connected');
@@ -20,7 +20,7 @@
     room = url.searchParams.get('room') || 'main-room';
     server.emit('join-room', room);
   });
-  
+
   server.on('chat-msg', function (msg) {
   var chat = document.getElementById("chat-box");
   chat.insertAdjacentHTML('beforeend', '\n' + msg); //send text to server and it sends to everyone.
