@@ -1,30 +1,23 @@
+
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
 
 //draw a line
-ctx.strokeStyle = 'blue';
-ctx.strokeStyle = 'red';
-ctx.strokeStyle = 'purple';
 
+var color = 'black';
+var size = 3;
 
-var mouse_down = false;
-
-canvas.addEventListener('mousedown', function(event) {
-  mouse_down = true;
-  console.log('DOWN', event.offsetX, event.offsetY);
-});
-canvas.addEventListener('mouseup', function (event) {
-mouse_down = false;
-console.log('UP', event.offsetX, event.offsetY);
-});
-canvas.addEventListener('mousemove', function (event) {
-  if (mouse_down) {
-    console.log('MOVE', event.offsetX, event.offsetY);
-  }
-});
+function sizeChange(input) {
+  size = input;
+}
+function colorChange(input){
+  color = input;
+};
 
 //draw function
-function draw (past, current) {
+function draw (past, current, color, size) {
+ctx.lineWidth = size;
+ctx.strokeStyle = color;
 ctx.moveTo(past[0], past[1]);  //gets an x and y position
 ctx.quadraticCurveTo(   //smooths your lines out
   past[0], past[1],
@@ -34,8 +27,10 @@ ctx.stroke();
 ctx.closePath();
 }
 
+function eventDraw(){
 var current;
 var past;
+var mouse_down = false;
 canvas.addEventListener('mousedown', function (event) {
 mouse_down = true;
 });
@@ -47,20 +42,17 @@ canvas.addEventListener('mousemove', function (event) {
 if (mouse_down) {
   current = [event.offsetX, event.offsetY];
   if (past) {
-    draw(past, current);
+    draw(past, current, color, size);
   }
-  socket.emit('draw', past, current);
+  socket.emit('draw', past, current, color, size);
   past = [event.offsetX, event.offsetY];
 }
 });
+}
+eventDraw();
 
 $(function () {
-  socket.on('draw', function(past, current) {
-    draw(past, current);
-    console.log("hey");
+  socket.on('draw', function(past, current, color, size) {
+    draw(past, current, color, size);
   });
-});
-
-http.listen(8000, function () {
-  console.log('listening on port 8000');
 });

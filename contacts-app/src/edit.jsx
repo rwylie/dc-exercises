@@ -6,12 +6,13 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import styles from './contacts.css';
 import MyForm from './myform';
+import database, {User} from './fsociety';
 
 class Edit extends Component {
   constructor(props) {
     super(props);
-//gets the contacts from localStorage.
-    var contacts = localStorage.contacts;
+//gets the contacts from localStorage. **change to Firebase
+    var contacts = database.contacts;
     contacts = JSON.parse(contacts);
 
     console.log(props.match.params.index);
@@ -21,11 +22,11 @@ class Edit extends Component {
     };
   }
 
-
+//?how to change the form from Add contact to Edit?
   render() {
     return (
       <div>
-        <MyForm contact={this.state.contact} index={this.props.match.params.index}/>
+        <MyForm title="Edit Contact" contact={this.state.contact} index={this.props.match.params.index}/>
       </div>
     )
   }

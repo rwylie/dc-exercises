@@ -8,6 +8,7 @@ import MyForm from './myform';
 import {BrowserRouter, Route, Link} from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Edit from './edit';
+import {auth} from './fsociety';
 
 const Home = () => (<h2>Home Page</h2>);   //quick component
 
@@ -17,6 +18,17 @@ const theme = getMuiTheme({
 
   // route of /edit/:index is based on the index of the contacts list
 class App extends Component {
+  login () {
+    console.log('logging in');
+  auth()
+    .then(function (user) {
+      console.log(user);
+    })
+    .catch(function (e) {
+      console.log(e);
+    });
+}
+
   render() {
     return (
 
@@ -28,6 +40,9 @@ class App extends Component {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/form">Form</Link></li>
           </ul>
+          <div>
+          <button onClick={(e) => this.login(e)}> Login </button>
+          </div>
           <Route exact path="/" component={Home}/>
           <Route path="/form" component={MyForm}/>
 

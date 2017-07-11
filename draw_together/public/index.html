@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -20,26 +21,30 @@
     padding: 10px;;">
   </canvas>
 <!--change color buttons -->
-<div style="text-align: center;">
-  <h3 style="color: #84C49A"> Choose Color</h3>
-  <form style="color: white;"action="colors">
-    <input type="radio" name="color" value="blue"> Blue
-    <input type="radio" name="color" value="red"> Red
-    <input type="radio" name="color" value="purple"> Purple
-  </form>
+<div style="text-align: center; color: white">
+  <label><h3 style="color: #84C49A"> Choose Color</h3></label>
+    <input type='color' value='#000000' onchange='colorChange(this.value)'>
 </div>
 
 <!--change thickness buttons -->
-<div style="text-align:center;">
-  <h3 style="color: #84C49A"> Choose Pen </h3>
-  <form style="color: white;"action="pens">
-    <input type="radio" name="pen" value="small"> Small
-    <input type="radio" name="pen" value="medium"> Medium
-    <input type="radio" name="pen" value="large"> Large
-  </form>
+<div style="text-align:center; color: white;">
+  <label><h3 style="color: #84C49A"> Choose Pen </h3></label>
+    <input type="radio" name="pen" checked='true' value="1" onfocus='sizeChange(this.value)'> Small
+    <input type="radio" name="pen" value="5" onfocus='sizeChange(this.value)'> Medium
+    <input type="radio" name="pen" value="9" onfocus='sizeChange(this.value)'> Large
 </div>
 
 <!--ERASE -->
+
+  <script src="//code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+      crossorigin="anonymous"></script>
+<script src="/socket.io/socket.io.js"></script>
+<script src="frontend.js"></script>
+<script> var socket = io() </script>
+
+</body>
+</html>
 
   <script src="//code.jquery.com/jquery-3.2.1.min.js"
       integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="

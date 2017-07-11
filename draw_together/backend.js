@@ -12,8 +12,8 @@ io.on('connection', function(socket) {
   socket.on('disconnect', function () {
     console.log('EXITED');
   });
-  socket.on('draw', function(past, current) {
-    socket.broadcast.emit('draw', past, current);
+  socket.on('draw', function(past, current, color, size) {
+    socket.broadcast.emit('draw', past, current, color, size);
   });
 });
 

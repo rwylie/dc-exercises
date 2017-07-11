@@ -6,6 +6,8 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import styles from './contacts.css';
 
+import database, {User} from './fsociety';
+
 //function to alphabetically sort contacts list
 function compare(a, b) {
   if (a.name < b.name)
@@ -18,8 +20,8 @@ function compare(a, b) {
 class MyForm extends Component {
   constructor(props) {
     super(props);
-    // creates contacts as an array in localStorage
-    var contacts = localStorage.contacts || '[]';
+    // creates contacts as an array in localStorage *** cgabged localStorage to firebase "database"
+    var contacts = database.contacts || '[]';
     contacts = JSON.parse(contacts);
 
     //if it's on contact then update/edit, keep information in form
@@ -62,6 +64,10 @@ class MyForm extends Component {
 //handles the submit button, calls the handleAddContact and then resets form to null
 handleSubmit(event) {
   console.log('submitted: ' + this.state);
+  database.ref('contacts/' + User.user.uid).set({  //store some contacts under user id
+    paul: {name: "Paul B"},
+    jim: {name: "Jim"},  //save to the database for firebase, tracking it by userid
+});
   event.preventDefault();
 
   this.handleAddContact();
@@ -104,7 +110,7 @@ handleAddContact = () => {
   this.state.contacts.sort(compare);
   this.setState({ contacts: this.state.contacts});
 
-  localStorage.contacts = JSON.stringify(this.state.contacts);
+  database.contacts = JSON.stringify(this.state.contacts);
 }
 
 //contact is set to false, if toggleState is used contact information is shown
@@ -115,12 +121,12 @@ toggleState (event, contact) {
 
 //deletes a contact from contacts
 doDelete (index) {
-  var contacts = localStorage.contacts || '[]';
+  var contacts = database.contacts || '[]';
   contacts = JSON.parse(contacts);
 
   //deletes from local storage
   contacts.splice(index, 1);
-  localStorage.contacts = JSON.stringify(contacts);
+  database.contacts = JSON.stringify(contacts);
 
   //deletes from interface
   this.state.contacts.splice(index, 1);
